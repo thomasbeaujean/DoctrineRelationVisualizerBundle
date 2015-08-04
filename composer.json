@@ -4,6 +4,9 @@
     "require-dev": {
         "symfony/class-loader": "2.3.*"
     },
+    "require": {
+        "tbn/getsetforeignnormalizer-bundle": ">1.2.3"
+    },
     "autoload": {
         "psr-0": { "tbn\\DoctrineRelationVisualizerBundle": "" }
     },
