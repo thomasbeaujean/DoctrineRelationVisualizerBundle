@@ -115,7 +115,7 @@ class EntityService
 
                 if (isset($mapping['joinColumns'])) {
                     foreach ($mapping['joinColumns'] as $joinColumn) {
-                        if ($joinColumn['nullable'] === false) {
+                        if (isset($joinColumn['nullable']) && $joinColumn['nullable'] === false) {
                             $isNullable = false;
                         }
                     }
