@@ -23,7 +23,7 @@
       <h1>Entity Manager</h1>
       <div>
       {% for managerName in managerNames %}
-      	<a href="{{ path('visualizer_manager', {'connectionName': managerName}) }}">{{ managerName }}</a>
+      	<a href="{{ path('visualizer_manager', {'managerName': managerName}) }}">{{ managerName }}</a>
       {% endfor %}
       </div>
       managerNames

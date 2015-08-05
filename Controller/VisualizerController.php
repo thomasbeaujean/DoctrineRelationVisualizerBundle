@@ -31,19 +31,18 @@ class VisualizerController extends Controller
     }
 
     /**
-     * @Route("/manager/{connectionName}",name="visualizer_manager")
+     * @Route("/manager/{managerName}",name="visualizer_manager")
      * @Template()
      */
-    public function managerAction($connectionName = null)
+    public function managerAction($managerName)
     {
         //get the list of manager names
         $managers = $this->container->getParameter('doctrine.entity_managers');
-        $managerName = $this->container->getParameter('doctrine.default_entity_manager');
 
         $managerNames = array();
 
-        foreach ($managers as $managerName => $manager) {
-            $managerNames[] = $managerName;
+        foreach ($managers as $managerNameIndex => $manager) {
+            $managerNames[] = $managerNameIndex;
         }
 
         return array('managerName' => $managerName, 'managerNames' => $managerNames);
@@ -71,7 +70,7 @@ class VisualizerController extends Controller
     /**
      * @Route("/data/{connectionName}")
      */
-    public function getDataAction($connectionName = null)
+    public function getDataAction($connectionName)
     {
         $entities = $this->get('tbn.entity_relation_visualizer.entity_service')->getEntities($connectionName);
 
