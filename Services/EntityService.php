@@ -45,7 +45,7 @@ class EntityService
 
         $fs = new Filesystem();
 
-        $filepath = $this->ymlFilePath.'-'.$connectionName;
+        $filepath = $this->ymlFilePath.'/visualizer-'.$connectionName.'.yml';
         $fs->touch($filepath);
 
         file_put_contents($filepath, $yaml);
@@ -164,11 +164,10 @@ class EntityService
     {
         //services
         $normalizer = $this->getSetForeignNormalizer;
-        $normalizer->setWatchDog(8000);
 
         $normalizedEntities = array();
 
-        $filepath = $this->ymlFilePath.'-'.$connectionName;
+        $filepath = $this->ymlFilePath.'/visualizer-'.$connectionName.'.yml';
 
         $fs = new Filesystem();
         $fs->touch($filepath);
@@ -180,7 +179,6 @@ class EntityService
         //parse entities
         foreach ($entities as $entity) {
             $normalizedEntity = $normalizer->normalize($entity);
-
             $uuid = $entity->getUuid();
 
             if (isset($entitiesPositions[$uuid])) {

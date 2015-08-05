@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('tbn_doctrine_relation_visualizer');
 
         $rootNode->children()
-            ->scalarNode('position_filepath')->defaultValue('%kernel.root_dir%/config/visualizer.yml')
+            ->scalarNode('position_filepath')->defaultValue('%kernel.root_dir%/config')
         ->end();
 
         return $treeBuilder;
