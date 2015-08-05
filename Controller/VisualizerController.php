@@ -24,20 +24,42 @@ class VisualizerController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        //get the list of manager names
+        $managerName = $this->container->getParameter('doctrine.default_entity_manager');
+
+        return $this->redirect($this->generateUrl('visualizer_manager', array('connectionName' => $managerName)));
     }
 
     /**
-     * @Route("/save")
+     * @Route("/manager/{connectionName}",name="visualizer_manager")
      * @Template()
      */
-    public function saveAction(Request $request)
+    public function managerAction($connectionName = null)
+    {
+        //get the list of manager names
+        $managers = $this->container->getParameter('doctrine.entity_managers');
+        $managerName = $this->container->getParameter('doctrine.default_entity_manager');
+
+        $managerNames = array();
+
+        foreach ($managers as $managerName => $manager) {
+            $managerNames[] = $managerName;
+        }
+
+        return array('managerName' => $managerName, 'managerNames' => $managerNames);
+    }
+
+    /**
+     * @Route("/save/{connectionName}")
+     * @Template()
+     */
+    public function saveAction(Request $request, $connectionName = null)
     {
         $jsonEntities = $request->request->get('entities');
 
         $entities = json_decode($jsonEntities, true);
 
-        $this->get('tbn.entity_relation_visualizer.entity_service')->saveEntitiesPositions($entities);
+        $this->get('tbn.entity_relation_visualizer.entity_service')->saveEntitiesPositions($entities, $connectionName);
 
         $response = new Response();
         $response->setContent(json_encode(array()));
@@ -47,11 +69,11 @@ class VisualizerController extends Controller
     }
 
     /**
-     * @Route("/data")
+     * @Route("/data/{connectionName}")
      */
-    public function getDataAction()
+    public function getDataAction($connectionName = null)
     {
-        $entities = $this->get('tbn.entity_relation_visualizer.entity_service')->getEntities();
+        $entities = $this->get('tbn.entity_relation_visualizer.entity_service')->getEntities($connectionName);
 
         $response = new Response();
         $response->setContent(json_encode(array('entities' => $entities)));

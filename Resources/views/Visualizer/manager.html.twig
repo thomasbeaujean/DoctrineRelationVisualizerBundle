@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ER Diagram</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" src="{{ asset("bundles/doctrinerelationvisualizer/lib/jointjs/joint.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("bundles/doctrinerelationvisualizer/lib/jointjs/joint.shapes.uml.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("bundles/doctrinerelationvisualizer/js/erd.js") }}"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/doctrinerelationvisualizer/css/visualizer.css") }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/doctrinerelationvisualizer/lib/jointjs/joint.min.css") }}" />
+</head>
+<body>
+    <script type="text/javascript">
+    	var managerName = "{{ managerName }}";
+    </script>
+    <div id="erd" class="content-container">
+      <h1>ER Diagrams</h1>
+      <h1>Entity Manager</h1>
+      <div>
+      {% for managerName in managerNames %}
+      	<a href="{{ path('visualizer_manager', {'connectionName': managerName}) }}">{{ managerName }}</a>
+      {% endfor %}
+      </div>
+      managerNames
+      <div id="paper" class="paper"/>
+    </div>
+</body>
+</html>

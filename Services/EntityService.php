@@ -31,12 +31,6 @@ class EntityService
         $this->ymlFilePath = $ymlFilePath;
         $this->getSetForeignNormalizer = $getSetForeignNormalizer;
         $this->doctrine = $doctrine;
-
-        $fs = new Filesystem();
-
-        if (!$fs->exists($this->ymlFilePath)) {
-            $fs->touch($this->ymlFilePath);
-        }
     }
 
     /**
@@ -44,24 +38,30 @@ class EntityService
      *
      * @param array $entities
      */
-    public function saveEntitiesPositions($entities)
+    public function saveEntitiesPositions($entities, $connectionName)
     {
         $dumper = new Dumper();
         $yaml = $dumper->dump($entities, 10);
 
-        file_put_contents($this->ymlFilePath, $yaml);
+        $fs = new Filesystem();
+
+        $filepath = $this->ymlFilePath.'-'.$connectionName;
+        $fs->touch($filepath);
+
+        file_put_contents($filepath, $yaml);
     }
 
     /**
      * Get an array of entities with their positions
      *
+     * @param $connectionName The connection name
      * @return array:entities
      */
-    public function getEntities()
+    public function getEntities($connectionName)
     {
-        $entities = $this->getEntitiesData();
+        $entities = $this->getEntitiesData($connectionName);
 
-        $normalizedEntities = $this->getNormalizedEntities($entities);
+        $normalizedEntities = $this->getNormalizedEntities($entities, $connectionName);
 
         return $normalizedEntities;
     }
@@ -69,20 +69,19 @@ class EntityService
     /**
      * Get an array of visualizer entities
      *
+     * @param $connectionName The connection name
      * @return array:Entity
      */
-    protected function getEntitiesData()
+    protected function getEntitiesData($connectionName)
     {
         $entities = array();
 
-        $em = $this->doctrine->getManager();
+        $em = $this->doctrine->getEntityManager($connectionName);
         $meta = $em->getMetadataFactory()->getAllMetadata();
 
         foreach ($meta as $m) {
 
             $doctrineRootEntityName = $m->rootEntityName;
-
-            zdebug($m);
 
             if ($doctrineRootEntityName !== $m->getName()) {
                 $rootEntityName = md5($doctrineRootEntityName);
@@ -161,14 +160,20 @@ class EntityService
      * @param array $entities
      * @return array The entities for the view
      */
-    protected function getNormalizedEntities($entities)
+    protected function getNormalizedEntities($entities, $connectionName)
     {
         //services
         $normalizer = $this->getSetForeignNormalizer;
+        $normalizer->setWatchDog(8000);
 
         $normalizedEntities = array();
 
-        $content = file_get_contents($this->ymlFilePath);
+        $filepath = $this->ymlFilePath.'-'.$connectionName;
+
+        $fs = new Filesystem();
+        $fs->touch($filepath);
+
+        $content = file_get_contents($filepath);
 
         $entitiesPositions = Yaml::parse($content);
 

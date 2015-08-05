@@ -1,5 +1,5 @@
 $(function() { 
-	$.get("/visualizer/data", function(data) {
+	$.get("/visualizer/data/" + managerName, function(data) {
 		console.log(data);
 		//var entities = data.data.entities;
 		var entities = data.entities;
@@ -44,7 +44,7 @@ $(function() {
 			
 			$.ajax({
 				type: "POST",
-				url: '/visualizer/save',
+				url: '/visualizer/save/' + managerName,
 				data: {
 					entities: JSON.stringify(data)
 				}
