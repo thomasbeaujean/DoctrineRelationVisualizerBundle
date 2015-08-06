@@ -1,6 +1,6 @@
 $(function() { 
 	var displayColumns = true;
-	$.get("/visualizer/data/" + managerName, function(data) {
+	$.get(baseUrl + "data/" + managerName, function(data) {
 		console.log(data);
 
 		var entities = data.entities;
@@ -77,7 +77,7 @@ $(function() {
 			
 			$.ajax({
 				type: "POST",
-				url: '/visualizer/save/' + managerName,
+				url: baseUrl + 'save/' + managerName,
 				data: {
 					entities: JSON.stringify(data)
 				}

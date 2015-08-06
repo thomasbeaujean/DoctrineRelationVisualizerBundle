@@ -14,12 +14,12 @@ use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @Route("/visualizer")
+ * @Route("/_visualizer")
  */
 class VisualizerController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="visualizer_base")
      * @Template()
      */
     public function indexAction()
