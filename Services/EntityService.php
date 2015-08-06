@@ -79,6 +79,8 @@ class EntityService
         $em = $this->doctrine->getEntityManager($connectionName);
         $meta = $em->getMetadataFactory()->getAllMetadata();
 
+        zdebug($meta);
+
         foreach ($meta as $m) {
 
             $doctrineRootEntityName = $m->rootEntityName;
@@ -106,47 +108,50 @@ class EntityService
             }
 
             foreach ($mappings as $mapping) {
-                $isOwningSide = $mapping['isOwningSide'];
-                $targetEntityName  = $mapping['targetEntity'];
-                $doctrineAssociationType = $mapping['type'];
+                //the inherited mapping are not displayed directly
+                if (!isset($mapping['inherited'])) {
+                    $isOwningSide = $mapping['isOwningSide'];
+                    $targetEntityName  = $mapping['targetEntity'];
+                    $doctrineAssociationType = $mapping['type'];
 
-                $isNullable = true;
+                    $isNullable = true;
 
-                if (isset($mapping['joinColumns'])) {
-                    foreach ($mapping['joinColumns'] as $joinColumn) {
-                        if (isset($joinColumn['nullable']) && $joinColumn['nullable'] === false) {
-                            $isNullable = false;
+                    if (isset($mapping['joinColumns'])) {
+                        foreach ($mapping['joinColumns'] as $joinColumn) {
+                            if (isset($joinColumn['nullable']) && $joinColumn['nullable'] === false) {
+                                $isNullable = false;
+                            }
                         }
                     }
+
+                    switch ($doctrineAssociationType) {
+                        case ClassMetadataInfo::ONE_TO_MANY:
+                            $associationType = 'ONE_TO_MANY';
+                            break;
+                        case ClassMetadataInfo::MANY_TO_MANY:
+                            $associationType = 'MANY_TO_MANY';
+                            break;
+                        case ClassMetadataInfo::MANY_TO_ONE:
+                            $associationType = 'MANY_TO_ONE';
+                            break;
+                        case ClassMetadataInfo::ONE_TO_ONE:
+                            $associationType = 'ONE_TO_ONE';
+                            break;
+                        default:
+                            $associationType = $doctrineAssociationType;
+                            break;
+                    }
+
+                    $targetEntity = new AssociationEntity();
+                    $targetEntity->setName($targetEntityName);
+                    $targetEntity->setAssociationType($associationType);
+                    $targetEntity->setIsNullable($isNullable);
+
+                    unset($associationType);
+                    unset($doctrineAssociationType);
+
+                    $entity->addTargetEntity($targetEntity);
                 }
-
-                switch ($doctrineAssociationType) {
-                    case ClassMetadataInfo::ONE_TO_MANY:
-                        $associationType = 'ONE_TO_MANY';
-                        break;
-                    case ClassMetadataInfo::MANY_TO_MANY:
-                        $associationType = 'MANY_TO_MANY';
-                        break;
-                    case ClassMetadataInfo::MANY_TO_ONE:
-                        $associationType = 'MANY_TO_ONE';
-                        break;
-                    case ClassMetadataInfo::ONE_TO_ONE:
-                        $associationType = 'ONE_TO_ONE';
-                        break;
-                    default:
-                        $associationType = $doctrineAssociationType;
-                        break;
-                }
-
-                $targetEntity = new AssociationEntity();
-                $targetEntity->setName($targetEntityName);
-                $targetEntity->setAssociationType($associationType);
-                $targetEntity->setIsNullable($isNullable);
-
-                unset($associationType);
-                unset($doctrineAssociationType);
-
-                $entity->addTargetEntity($targetEntity);
             }
 
             $entities[] = $entity;
@@ -164,6 +169,7 @@ class EntityService
     {
         //services
         $normalizer = $this->getSetForeignNormalizer;
+        $normalizer->setWatchDogLimit(8000);
 
         $normalizedEntities = array();
 

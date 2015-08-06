@@ -1,19 +1,52 @@
 $(function() { 
+	var displayColumns = true;
 	$.get("/visualizer/data/" + managerName, function(data) {
 		console.log(data);
-		//var entities = data.data.entities;
+
 		var entities = data.entities;
 		
 		var graph = new joint.dia.Graph;
 		
 		var paper = new joint.dia.Paper({
 		    el: $('#paper'),
-		    width: 1500,
-		    height: 1000,
+		    width: 4000,
+		    height: 3000,
 		    gridSize: 1,
 		    model: graph
 		});
 		
+		//display all links
+		paper.on('blank:pointerdblclick', 
+		    function(cellView, evt, x, y) { 
+				//add all links
+				_.each(relations, function(relation) { 
+					graph.addCell(relation);
+				});
+		    }
+		);
+		
+		//display only links of the entity
+		paper.on('cell:pointerdblclick', 
+		    function(cellView, evt, x, y) { 
+				var entityUuid = cellView.model.id;
+				
+				//remove all links
+				_.each(relations, function(relation) { 
+					relation.remove();
+				});
+				
+				//add only the link of the source
+				_.each(relations, function(relation) { 
+					if(relation.attributes.source.id === entityUuid) {
+						graph.addCell(relation);
+					}
+					if(relation.attributes.target.id === entityUuid) {
+						graph.addCell(relation);
+					}
+				});
+		    }
+		);
+	
 		var uml = joint.shapes.uml;
 
 		
@@ -53,7 +86,6 @@ $(function() {
 		
 		var persistPositionTimer = null;
 		
-
 		var classes = {
 		};
 		
@@ -62,11 +94,17 @@ $(function() {
 			  var type = eval('erd.' + entity.type);
 			  
 			  var attributes = [];
-			  var height = 50 + 12 * entity.fields.length;
+			  var height = 50;
 			  
-			  $.each(entity.fields, function() {
-				  attributes.push(this.name + ': ' + this.type);
-			  });
+			  if (displayColumns) {
+				  height = 50 + 12 * entity.fields.length;
+			  }
+			  
+			  if (displayColumns) {
+				  $.each(entity.fields, function() {
+					  attributes.push(this.name + ': ' + this.type);
+				  });
+			  }
 			  
 			  var entityClass = new uml.Class({
 			        position: { x:this.x, y: this.y },
@@ -130,8 +168,14 @@ $(function() {
 		    }
 		});
 		
-		$.each(entities,  function(){
+		$.each(entities,  function() {
 			var me = this.entity;
+			
+			if (me.rootEntityName !== null) {
+				relations.push(new joint.shapes.uml.Composition({ source: { id: classes[me.uuid].id }, target: { id: classes[me.rootEntityName].id }}));
+			}
+			
+			
 			$.each(me.targetEntities, function(index, targetEntity) {
 				switch (targetEntity.associationType) {
                     case 'MANY_TO_ONE':
