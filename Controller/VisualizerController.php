@@ -27,7 +27,7 @@ class VisualizerController extends Controller
         //get the list of manager names
         $managerName = $this->container->getParameter('doctrine.default_entity_manager');
 
-        return $this->redirect($this->generateUrl('visualizer_manager', array('connectionName' => $managerName)));
+        return $this->redirect($this->generateUrl('visualizer_manager', array('managerName' => $managerName)));
     }
 
     /**

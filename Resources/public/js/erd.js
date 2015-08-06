@@ -143,28 +143,39 @@ $(function() {
 		joint.shapes.uml.OneToOne = joint.dia.Link.extend({
 		    defaults: {
 		        type: 'uml.OneToMany',
-		        attrs: { '.marker-target': { d: 'M 20 10 L 20 20 L 0 10 L 20 0 z', fill: 'white' }}
+		        attrs: { '.marker-target': { d: 'M 5 10 L 20 20 L 0 10 L 20 0 z', fill: 'white' }}
+				,labels: [{ position: -20, attrs: { text: { dy: -8, text: '1' }}}]
 		    }
 		});
 		
 		joint.shapes.uml.ManyToOne = joint.dia.Link.extend({
 		    defaults: {
-		        type: 'uml.OneToMany',
-		        attrs: { '.marker-target': { d: 'M 20 10 L 20 20 L 0 10 L 20 0 z', fill: 'white'}}
+		        type: 'uml.ManyToOne',
+		        attrs: { '.marker-target': { d: 'M 5 10 L 20 20 L 0 10 L 20 0 z', fill: 'white' }}
+				,labels: [{ position: -20, attrs: { text: { dy: -8, text: '0..1' }}}]
 		    }
 		});
 		
 		joint.shapes.uml.ManyToOneComposition = joint.dia.Link.extend({
 		    defaults: {
 		        type: 'uml.ManyToOneComposition',
-		        attrs: { '.marker-target': { d: 'M 20 20 L 20 0 L 0 0 L 0 20 z', fill: 'white'}}
+		        attrs: { '.marker-target': { d: 'M 5 10 L 20 20 L 0 10 L 20 0 z', fill: 'white' }}
+				,labels: [{ position: -10, attrs: { text: { dy: -2, text: '1' }}}]
 		    }
 		});
 		
 		joint.shapes.uml.OneToMany = joint.dia.Link.extend({
 		    defaults: {
 		        type: 'uml.OneToMany',
-		        attrs: { '.marker-target': { d: 'M 20 10 L 20 20 L 0 10 L 20 0 z', fill: 'black'}}
+		        attrs: { '.marker-target': { d: 'M 5 10 L 20 20 L 0 10 L 20 0 z', fill: 'white' }}
+				,labels: [{ position: -10, attrs: { text: { dy: -2, text: '*' }}}]
+		    }
+		});
+		
+		joint.shapes.uml.Extends = joint.dia.Link.extend({
+		    defaults: {
+		        type: 'uml.Extends',
+		        attrs: { '.marker-target': { d: 'M 20 10 L 20 20 L 0 10 L 20 0 z', fill: 'black' }}				
 		    }
 		});
 		
@@ -172,7 +183,7 @@ $(function() {
 			var me = this.entity;
 			
 			if (me.rootEntityName !== null) {
-				relations.push(new joint.shapes.uml.Composition({ source: { id: classes[me.uuid].id }, target: { id: classes[me.rootEntityName].id }}));
+				relations.push(new joint.shapes.uml.Extends({ source: { id: classes[me.uuid].id }, target: { id: classes[me.rootEntityName].id }}));
 			}
 			
 			
