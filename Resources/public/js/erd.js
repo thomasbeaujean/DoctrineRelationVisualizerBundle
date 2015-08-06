@@ -175,7 +175,7 @@ $(function() {
 		joint.shapes.uml.Extends = joint.dia.Link.extend({
 		    defaults: {
 		        type: 'uml.Extends',
-		        attrs: { '.marker-target': { d: 'M 20 10 L 20 20 L 0 10 L 20 0 z', fill: 'black' }}				
+		        attrs: { '.marker-target': { d: 'M 20 10 L 20 20 L 0 10 L 20 0 z', fill: 'black' }}			
 		    }
 		});
 		
@@ -186,12 +186,11 @@ $(function() {
 				relations.push(new joint.shapes.uml.Extends({ source: { id: classes[me.uuid].id }, target: { id: classes[me.rootEntityName].id }}));
 			}
 			
-			
 			$.each(me.targetEntities, function(index, targetEntity) {
 				switch (targetEntity.associationType) {
                     case 'MANY_TO_ONE':
                     	if (targetEntity.isNullable) {
-                    		relations.push(new uml.ManyToOne({ source: { id: classes[me.uuid].id }, target: { id: classes[targetEntity.uuid].id }}));
+                			relations.push(new uml.ManyToOne({ source: { id: classes[me.uuid].id }, target: { id: classes[targetEntity.uuid].id }}));	
                     	} else {
                     		relations.push(new uml.ManyToOneComposition({ source: { id: classes[me.uuid].id }, target: { id: classes[targetEntity.uuid].id }}));
                     	}

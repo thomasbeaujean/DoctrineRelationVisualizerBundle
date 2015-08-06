@@ -79,8 +79,6 @@ class EntityService
         $em = $this->doctrine->getEntityManager($connectionName);
         $meta = $em->getMetadataFactory()->getAllMetadata();
 
-        zdebug($meta);
-
         foreach ($meta as $m) {
 
             $doctrineRootEntityName = $m->rootEntityName;
@@ -92,7 +90,8 @@ class EntityService
             }
 
             $entity = new Entity();
-            $entity->setName($m->getName());
+            $entityName = $m->getName();
+            $entity->setName($entityName);
             $entity->setRootEntityName($rootEntityName);
 
             $mappings = $m->associationMappings;
@@ -142,15 +141,42 @@ class EntityService
                             break;
                     }
 
-                    $targetEntity = new AssociationEntity();
-                    $targetEntity->setName($targetEntityName);
-                    $targetEntity->setAssociationType($associationType);
-                    $targetEntity->setIsNullable($isNullable);
+                    //if the entity is self referenced, then we create a fake entity suffixed by "-self"
+                    if ($targetEntityName === $entityName) {
+                        $targetEntityName = $targetEntityName.'-self';
+                        $selfEntity = new Entity();
+                        $selfEntity->setName($targetEntityName);
+                        $selfEntity->getShortName('self');
+
+                        if ($associationType === 'MANY_TO_ONE' || $associationType === 'ONE_TO_ONE') {
+                            $targetEntity = new AssociationEntity();
+                            $targetEntity->setName($targetEntityName);
+                            $targetEntity->setAssociationType($associationType);
+                            $targetEntity->setIsNullable($isNullable);
+                            $entity->addTargetEntity($targetEntity);
+
+                        } else {
+                            $targetEntity = new AssociationEntity();
+                            $targetEntity->setName($entityName);
+                            $targetEntity->setAssociationType($associationType);
+                            $targetEntity->setIsNullable($isNullable);
+                            $selfEntity->addTargetEntity($targetEntity);
+                        }
+
+                        $entities[] = $selfEntity;
+                        unset($selfEntity);
+                    } else {
+                        $targetEntity = new AssociationEntity();
+                        $targetEntity->setName($targetEntityName);
+                        $targetEntity->setAssociationType($associationType);
+                        $targetEntity->setIsNullable($isNullable);
+
+                        unset($associationType);
+                        $entity->addTargetEntity($targetEntity);
+                    }
 
                     unset($associationType);
                     unset($doctrineAssociationType);
-
-                    $entity->addTargetEntity($targetEntity);
                 }
             }
 
