@@ -195,6 +195,10 @@ $(function() {
                     		relations.push(new uml.ManyToOneComposition({ source: { id: classes[me.uuid].id }, target: { id: classes[targetEntity.uuid].id }}));
                     	}
                         break;
+                    case 'MANY_TO_MANY':
+            			relations.push(new uml.OneToMany({ source: { id: classes[me.uuid].id }, target: { id: classes[targetEntity.uuid].id }}));	
+            			relations.push(new uml.OneToMany({ target: { id: classes[me.uuid].id }, source: { id: classes[targetEntity.uuid].id }}));
+                        break;
                     case 'ONE_TO_ONE':
                     	relations.push(new uml.OneToOne({ source: { id: classes[me.uuid].id }, target: { id: classes[targetEntity.uuid].id }}));
                         break;
