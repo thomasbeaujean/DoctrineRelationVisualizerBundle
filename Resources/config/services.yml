@@ -8,4 +8,7 @@ services:
 
     tbn.entity_relation_visualizer.get_set_foreign_normalizer:
         class: tbn\GetSetForeignNormalizerBundle\Component\Serializer\Normalizer\GetSetPrimaryMethodNormalizer
-        arguments: ["@doctrine"]
+        arguments: 
+            - "@doctrine"
+            - 8000
+            
