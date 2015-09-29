@@ -195,7 +195,6 @@ class EntityService
     {
         //services
         $normalizer = $this->getSetForeignNormalizer;
-        $normalizer->setWatchDogLimit(8000);
 
         $normalizedEntities = array();
 
