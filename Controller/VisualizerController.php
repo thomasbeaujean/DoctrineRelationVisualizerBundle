@@ -2,16 +2,11 @@
 
 namespace tbn\DoctrineRelationVisualizerBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
-use tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Yaml\Dumper;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * @Route("/_visualizer")
@@ -21,6 +16,8 @@ class VisualizerController extends Controller
     /**
      * @Route("/", name="visualizer_base")
      * @Template()
+     *
+     * @return Response
      */
     public function indexAction()
     {
@@ -33,6 +30,9 @@ class VisualizerController extends Controller
     /**
      * @Route("/manager/{managerName}",name="visualizer_manager")
      * @Template()
+     *
+     * @param string $managerName
+     * @return array
      */
     public function managerAction($managerName)
     {
@@ -51,6 +51,10 @@ class VisualizerController extends Controller
     /**
      * @Route("/save/{connectionName}")
      * @Template()
+     *
+     * @param Request $request
+     * @param string  $connectionName
+     * @return Response
      */
     public function saveAction(Request $request, $connectionName = null)
     {
@@ -69,6 +73,9 @@ class VisualizerController extends Controller
 
     /**
      * @Route("/data/{connectionName}")
+     *
+     * @param string $connectionName
+     * @return Response
      */
     public function getDataAction($connectionName)
     {

@@ -7,7 +7,7 @@ use tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
 use tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Yaml;
-use tbn\GetSetForeignNormalizerBundle\Component\Serializer\Normalizer\GetSetPrimaryMethodNormalizer;
+use tbn\GetSetForeignNormalizerBundle\Component\Serializer\Normalizer\GetterMethodNormalizerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use tbn\DoctrineRelationVisualizerBundle\Entity\Field;
 
@@ -26,7 +26,7 @@ class EntityService
      * @param GetSetPrimaryMethodNormalizer $getSetForeignNormalizer
      * @param Doctrine $doctrine
      */
-    public function __construct($ymlFilePath, GetSetPrimaryMethodNormalizer $getSetForeignNormalizer, $doctrine)
+    public function __construct($ymlFilePath, GetterMethodNormalizerFactory $getSetForeignNormalizer, $doctrine)
     {
         $this->ymlFilePath = $ymlFilePath;
         $this->getSetForeignNormalizer = $getSetForeignNormalizer;

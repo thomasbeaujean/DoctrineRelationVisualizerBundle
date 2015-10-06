@@ -8,7 +8,6 @@
         "tbn/getsetforeignnormalizer-bundle": ">=2.0.0"
     },
     "autoload": {
-        "psr-0": { "tbn\\DoctrineRelationVisualizerBundle": "" }
-    },
-    "target-dir": "tbn/DoctrineRelationVisualizerBundle"
+        "psr-4": { "tbn\\DoctrineRelationVisualizerBundle\\": "" }
+    }
 }
