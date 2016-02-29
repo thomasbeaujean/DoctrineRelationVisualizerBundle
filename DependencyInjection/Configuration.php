@@ -19,10 +19,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('tbn_doctrine_relation_visualizer');
+        $rootNode = $treeBuilder->root('doctrine_relation_visualizer');
 
-        $rootNode->children()
-            ->scalarNode('position_filepath')->defaultValue('%kernel.root_dir%/config')
+        $rootNode
+        ->children()
+            ->scalarNode('position_filepath')->defaultValue('%kernel.root_dir%/config')->end()
+            ->booleanNode('display_columns')->defaultTrue()->end()
         ->end();
 
         return $treeBuilder;

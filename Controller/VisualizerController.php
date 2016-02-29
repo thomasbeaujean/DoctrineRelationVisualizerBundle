@@ -81,8 +81,10 @@ class VisualizerController extends Controller
     {
         $entities = $this->get('tbn.entity_relation_visualizer.entity_service')->getEntities($connectionName);
 
+        $displayColumns = $this->getParameter('tbn.entity_relation_visualizer.display_columns');
+
         $response = new Response();
-        $response->setContent(json_encode(array('entities' => $entities)));
+        $response->setContent(json_encode(array('entities' => $entities, 'displayColumns' => $displayColumns)));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

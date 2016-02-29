@@ -9,9 +9,10 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
 };
 
 $(function() {
-    var displayColumns = true;
     $.get(baseUrl + "data/" + managerName, function(data) {
         console.log(data);
+
+        var displayColumns = data.displayColumns;
 
         var entities = data.entities;
 
