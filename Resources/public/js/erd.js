@@ -1,4 +1,12 @@
-/* global joint */
+/* global joint, SVGElement, managerName, baseUrl, erd */
+
+/**
+ * Fix due to chrome version 48
+ * https://github.com/cpettitt/dagre-d3/issues/202
+ */
+SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(elem) {
+    return elem.getScreenCTM().inverse().multiply(this.getScreenCTM());
+};
 
 $(function() {
     var displayColumns = true;
@@ -90,9 +98,11 @@ $(function() {
 
         var classes = {};
 
-        $.each(entities,  function(){
+        entities.shift();
+
+        $.each(entities,  function()
+        {
             var entity = this.entity;
-            var type = eval('erd.' + entity.type);
 
             var attributes = [];
             var height = 50;
