@@ -85,9 +85,8 @@ class Entity
     public function getShortName()
     {
         $explodedNames = explode('\\', $this->getName());
-        $shortName = $explodedNames[count($explodedNames) - 1];
 
-        return $shortName;
+        return $explodedNames[count($explodedNames) - 1];
     }
 
     /**
@@ -127,7 +126,7 @@ class Entity
 
     /**
      *
-     * @param Field $targetEntity
+     * @param Field $field
      */
     public function addField(Field $field)
     {

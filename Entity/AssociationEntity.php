@@ -68,9 +68,8 @@ class AssociationEntity
     public function getShortName()
     {
         $explodedNames = explode('\\', $this->getName());
-        $shortName = $explodedNames[count($explodedNames) - 1];
 
-        return $shortName;
+        return $explodedNames[count($explodedNames) - 1];
     }
 
     /**

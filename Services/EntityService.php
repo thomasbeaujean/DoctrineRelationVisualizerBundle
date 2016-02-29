@@ -22,9 +22,9 @@ class EntityService
 {
     /**
      *
-     * @param String $ymlFilePath
+     * @param String                        $ymlFilePath
      * @param GetSetPrimaryMethodNormalizer $getSetForeignNormalizer
-     * @param Doctrine $doctrine
+     * @param Doctrine                      $doctrine
      */
     public function __construct($ymlFilePath, GetterMethodNormalizerFactory $getSetForeignNormalizer, $doctrine)
     {
@@ -36,7 +36,8 @@ class EntityService
     /**
      * Save the entities position as an array in an yml file
      *
-     * @param array $entities
+     * @param array  $entities
+     * @param string $connectionName
      */
     public function saveEntitiesPositions($entities, $connectionName)
     {
@@ -54,16 +55,14 @@ class EntityService
     /**
      * Get an array of entities with their positions
      *
-     * @param $connectionName The connection name
+     * @param string $connectionName The connection name
      * @return array:entities
      */
     public function getEntities($connectionName)
     {
         $entities = $this->getEntitiesData($connectionName);
 
-        $normalizedEntities = $this->getNormalizedEntities($entities, $connectionName);
-
-        return $normalizedEntities;
+        return $this->getNormalizedEntities($entities, $connectionName);
     }
 
     /**
@@ -80,7 +79,6 @@ class EntityService
         $meta = $em->getMetadataFactory()->getAllMetadata();
 
         foreach ($meta as $m) {
-
             $doctrineRootEntityName = $m->rootEntityName;
 
             if ($doctrineRootEntityName !== $m->getName()) {
@@ -109,7 +107,6 @@ class EntityService
             foreach ($mappings as $mapping) {
                 //the inherited mapping are not displayed directly
                 if (!isset($mapping['inherited'])) {
-                    $isOwningSide = $mapping['isOwningSide'];
                     $targetEntityName  = $mapping['targetEntity'];
                     $doctrineAssociationType = $mapping['type'];
 
@@ -232,7 +229,7 @@ class EntityService
             $normalizedEntities[] = array(
                 'x' => $x,
                 'y' => $y,
-                'entity' => $normalizedEntity
+                'entity' => $normalizedEntity,
             );
         }
 
