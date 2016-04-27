@@ -3,7 +3,6 @@
 namespace tbn\DoctrineRelationVisualizerBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +14,6 @@ class VisualizerController extends Controller
 {
     /**
      * @Route("/", name="visualizer_base")
-     * @Template()
      *
      * @return Response
      */
@@ -29,7 +27,6 @@ class VisualizerController extends Controller
 
     /**
      * @Route("/manager/{managerName}",name="visualizer_manager")
-     * @Template()
      *
      * @param string $managerName
      * @return array
@@ -45,12 +42,11 @@ class VisualizerController extends Controller
             $managerNames[] = $managerNameIndex;
         }
 
-        return array('managerName' => $managerName, 'managerNames' => $managerNames);
+        return $this->render('DoctrineRelationVisualizerBundle:Visualizer:manager.html.twig', array('managerName' => $managerName, 'managerNames' => $managerNames));
     }
 
     /**
      * @Route("/save/{connectionName}")
-     * @Template()
      *
      * @param Request $request
      * @param string  $connectionName
