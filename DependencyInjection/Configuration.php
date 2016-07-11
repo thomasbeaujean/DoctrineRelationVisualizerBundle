@@ -25,6 +25,8 @@ class Configuration implements ConfigurationInterface
         ->children()
             ->scalarNode('position_filepath')->defaultValue('%kernel.root_dir%/config')->end()
             ->booleanNode('display_columns')->defaultTrue()->end()
+            ->integerNode('area_width')->defaultValue(4000)->end()
+            ->integerNode('area_height')->defaultValue(3000)->end()
         ->end();
 
         return $treeBuilder;
