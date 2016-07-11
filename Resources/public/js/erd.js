@@ -99,8 +99,6 @@ $(function() {
 
         var classes = {};
 
-        entities.shift();
-
         $.each(entities,  function()
         {
             var entity = this.entity;
