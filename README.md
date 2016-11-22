@@ -13,6 +13,9 @@ The diagram is always in sync with the application entities.
 		if (in_array($this->getEnvironment(), array('dev', 'test'))) {
 			 ...
             $bundles[] = new tbn\DoctrineRelationVisualizerBundle\DoctrineRelationVisualizerBundle();
+	    //The DoctrineRelationVisualizerBundle requires the bundle GetSetForeignNormalizerBundle
+            $bundles[] = new \tbn\GetSetForeignNormalizerBundle\GetSetForeignNormalizerBundle();
+
             ...
 
 ## Add routing             
