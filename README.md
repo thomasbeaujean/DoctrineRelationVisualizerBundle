@@ -6,7 +6,11 @@ The diagram is always in sync with the application entities.
 
 # Installation
 
-		composer require "tbn/doctrinerelationvisualizer-bundle"
+		composer require --dev "tbn/doctrinerelationvisualizer-bundle"
+
+Publish assets
+
+		php app/console  assets:install
 
 ## Enable the bundle in the AppKernel for the dev environment
 		
@@ -19,7 +23,9 @@ The diagram is always in sync with the application entities.
 
             ...
 
-## Add routing             
+## Add routing 
+In routing_dev.yml
+
 		tbn_doctrine_relation_visualizer:
 			resource: "@DoctrineRelationVisualizerBundle/Resources/config/routing.yml"
 
@@ -27,7 +33,7 @@ The diagram is always in sync with the application entities.
 
 Go to the url:
 
-		htpp://your_app/_visualizer
+		http://your_app/_visualizer
 	
 Sort your entities to have a correct diagram
 
