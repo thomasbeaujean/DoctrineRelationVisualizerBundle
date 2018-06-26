@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
         $positionFilepathDefaultValue = '%kernel.root_dir%/config';
         if (Kernel::VERSION_ID >= 40000) {
             // code for Symfony 4.x
-            $positionFilepathDefaultValue = '%kernel.root_dir%/src/DoctrineVisualizerBundle';
+            $positionFilepathDefaultValue = '%kernel.project_dir%/src/DoctrineVisualizerBundle';
         }
 
         $rootNode
