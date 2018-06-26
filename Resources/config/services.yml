@@ -1,5 +1,6 @@
 services:
     tbn.entity_relation_visualizer.entity_service:
+        public: true
         class: "tbn\\DoctrineRelationVisualizerBundle\\Services\\EntityService"
         arguments:
             - "%tbn.entity_relation_visualizer.position_filepath%"
