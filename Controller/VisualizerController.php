@@ -42,7 +42,7 @@ class VisualizerController extends Controller
             $managerNames[] = $managerNameIndex;
         }
 
-        return $this->render('DoctrineRelationVisualizerBundle:Visualizer:manager.html.twig', array('managerName' => $managerName, 'managerNames' => $managerNames));
+        return $this->render('@DoctrineRelationVisualizer/Visualizer/manager.html.twig', array('managerName' => $managerName, 'managerNames' => $managerNames));
     }
 
     /**
