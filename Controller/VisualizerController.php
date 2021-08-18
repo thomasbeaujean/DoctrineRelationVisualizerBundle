@@ -2,21 +2,15 @@
 
 namespace tbn\DoctrineRelationVisualizerBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/_visualizer")
- */
-class VisualizerController extends Controller
+#[Route('/_visualizer')]
+class VisualizerController extends AbstractController
 {
-    /**
-     * @Route("/", name="visualizer_base")
-     *
-     * @return Response
-     */
+    #[Route('/', name:"visualizer_base")]
     public function indexAction()
     {
         //get the list of manager names
@@ -25,13 +19,8 @@ class VisualizerController extends Controller
         return $this->redirect($this->generateUrl('visualizer_manager', array('managerName' => $managerName)));
     }
 
-    /**
-     * @Route("/manager/{managerName}",name="visualizer_manager")
-     *
-     * @param string $managerName
-     * @return array
-     */
-    public function managerAction($managerName)
+    #[Route('/manager/{managerName}', name:"visualizer_manager")]
+    public function managerAction(string $managerName)
     {
         //get the list of manager names
         $managers = $this->container->getParameter('doctrine.entity_managers');
@@ -45,14 +34,8 @@ class VisualizerController extends Controller
         return $this->render('@DoctrineRelationVisualizer/Visualizer/manager.html.twig', array('managerName' => $managerName, 'managerNames' => $managerNames));
     }
 
-    /**
-     * @Route("/save/{connectionName}")
-     *
-     * @param Request $request
-     * @param string  $connectionName
-     * @return Response
-     */
-    public function saveAction(Request $request, $connectionName = null)
+    #[Route('/save/{connectionName}')]
+    public function saveAction(Request $request, ?string $connectionName = null)
     {
         $jsonEntities = $request->request->get('entities');
 
@@ -67,13 +50,8 @@ class VisualizerController extends Controller
         return $response;
     }
 
-    /**
-     * @Route("/data/{connectionName}")
-     *
-     * @param string $connectionName
-     * @return Response
-     */
-    public function getDataAction($connectionName)
+    #[Route('/data/{connectionName}')]
+    public function getDataAction(string $connectionName)
     {
         $entities = $this->get('tbn.entity_relation_visualizer.entity_service')->getEntities($connectionName);
 
