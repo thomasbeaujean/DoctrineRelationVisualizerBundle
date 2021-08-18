@@ -2,6 +2,7 @@
 
 namespace tbn\DoctrineRelationVisualizerBundle\Services;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
 use tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
@@ -20,26 +21,15 @@ use tbn\DoctrineRelationVisualizerBundle\Entity\Field;
  */
 class EntityService
 {
-    /**
-     *
-     * @param String                        $ymlFilePath
-     * @param GetSetPrimaryMethodNormalizer $getSetForeignNormalizer
-     * @param Doctrine                      $doctrine
-     */
-    public function __construct($ymlFilePath, GetterMethodNormalizerFactory $getSetForeignNormalizer, $doctrine)
+    public function __construct($ymlFilePath, private GetterMethodNormalizerFactory $getSetForeignNormalizer, private Registry $doctrine)
     {
         $this->ymlFilePath = $ymlFilePath;
-        $this->getSetForeignNormalizer = $getSetForeignNormalizer;
-        $this->doctrine = $doctrine;
     }
 
     /**
      * Save the entities position as an array in an yml file
-     *
-     * @param array  $entities
-     * @param string $connectionName
      */
-    public function saveEntitiesPositions($entities, $connectionName)
+    public function saveEntitiesPositions(array $entities, string $connectionName): void
     {
         $dumper = new Dumper();
         $yaml = $dumper->dump($entities, 10);
@@ -75,7 +65,7 @@ class EntityService
     {
         $entities = array();
 
-        $em = $this->doctrine->getEntityManager($connectionName);
+        $em = $this->doctrine->getManager($connectionName);
         $meta = $em->getMetadataFactory()->getAllMetadata();
 
         foreach ($meta as $m) {

@@ -6,15 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
 
 #[Route('/_visualizer')]
 class VisualizerController extends AbstractController
 {
+    public function __construct(private EntityService $entityService)
+    {
+
+    }
+
     #[Route('/', name:"visualizer_base")]
     public function indexAction()
     {
         //get the list of manager names
-        $managerName = $this->container->getParameter('doctrine.default_entity_manager');
+        $managerName = $this->getParameter('doctrine.default_entity_manager');
 
         return $this->redirect($this->generateUrl('visualizer_manager', array('managerName' => $managerName)));
     }
@@ -23,7 +29,7 @@ class VisualizerController extends AbstractController
     public function managerAction(string $managerName)
     {
         //get the list of manager names
-        $managers = $this->container->getParameter('doctrine.entity_managers');
+        $managers = $this->getParameter('doctrine.entity_managers');
 
         $managerNames = array();
 
@@ -41,7 +47,7 @@ class VisualizerController extends AbstractController
 
         $entities = json_decode($jsonEntities, true);
 
-        $this->get('tbn.entity_relation_visualizer.entity_service')->saveEntitiesPositions($entities, $connectionName);
+        $this->entityService->saveEntitiesPositions($entities, $connectionName);
 
         $response = new Response();
         $response->setContent(json_encode(array()));
@@ -53,11 +59,11 @@ class VisualizerController extends AbstractController
     #[Route('/data/{connectionName}')]
     public function getDataAction(string $connectionName)
     {
-        $entities = $this->get('tbn.entity_relation_visualizer.entity_service')->getEntities($connectionName);
+        $entities = $this->entityService->getEntities($connectionName);
 
-        $displayColumns = $this->container->getParameter('tbn.entity_relation_visualizer.display_columns');
-        $areaWidth = $this->container->getParameter('tbn.entity_relation_visualizer.area_width');
-        $areaHeight = $this->container->getParameter('tbn.entity_relation_visualizer.area_height');
+        $displayColumns = $this->getParameter('tbn.entity_relation_visualizer.display_columns');
+        $areaWidth = $this->getParameter('tbn.entity_relation_visualizer.area_width');
+        $areaHeight = $this->getParameter('tbn.entity_relation_visualizer.area_height');
 
         $response = new Response();
         $response->setContent(json_encode(array(

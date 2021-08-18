@@ -15,12 +15,12 @@ class Entity
         $this->name = $name;
     }
 
-    public function setRootEntityName(string $rootEntityName): void
+    public function setRootEntityName(?string $rootEntityName): void
     {
         $this->rootEntityName = $rootEntityName;
     }
 
-    public function getRootEntityName(): string
+    public function getRootEntityName(): ?string
     {
         return $this->rootEntityName;
     }

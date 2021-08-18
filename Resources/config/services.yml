@@ -1,5 +1,5 @@
 services:
-    tbn.entity_relation_visualizer.entity_service:
+    tbn\DoctrineRelationVisualizerBundle\Services\EntityService:
         public: true
         class: "tbn\\DoctrineRelationVisualizerBundle\\Services\\EntityService"
         arguments:
