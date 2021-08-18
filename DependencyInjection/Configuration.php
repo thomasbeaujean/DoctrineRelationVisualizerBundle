@@ -19,8 +19,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('doctrine_relation_visualizer');
+        $treeBuilder = new TreeBuilder('doctrine_relation_visualizer');
+        $rootNode = $treeBuilder->getRootNode();
 
         // code for Symfony 2.x & 3.x
         $positionFilepathDefaultValue = '%kernel.root_dir%/config';
