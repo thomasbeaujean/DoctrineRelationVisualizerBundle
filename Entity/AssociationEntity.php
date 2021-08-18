@@ -2,70 +2,44 @@
 
 namespace tbn\DoctrineRelationVisualizerBundle\Entity;
 
-/**
- *
- * @author Thomas BEAUJEAN
- *
- */
 class AssociationEntity
 {
     protected $name = null;
     protected $associationType = null;
     protected $isNullable = null;
 
-    /**
-     *
-     * @param unknown $name
-     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
-    /**
-     * The type of association
-     * @param string $associationType
-     */
-    public function setAssociationType($associationType)
+    public function setAssociationType(string $associationType)
     {
         $this->associationType = $associationType;
     }
 
-    /**
-     *
-     * @return String The type of association
-     */
-    public function getAssociationType()
+    public function getAssociationType(): string
     {
         return $this->associationType;
     }
 
     /**
      * The complete namespace
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Get thte uuid based on the name
-     *
-     * @return string
-     */
-    public function getUuid()
+    public function getUuid(): string
     {
         return md5($this->getName());
     }
 
     /**
      * Get the short name, the last entry of the complete namespace
-     *
-     * @return array
      */
-    public function getShortName()
+    public function getShortName(): string
     {
         $explodedNames = explode('\\', $this->getName());
 

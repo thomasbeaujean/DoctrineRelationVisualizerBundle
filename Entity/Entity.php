@@ -2,11 +2,6 @@
 
 namespace tbn\DoctrineRelationVisualizerBundle\Entity;
 
-/**
- *
- * @author Thomas BEAUJEAN
- *
- */
 class Entity
 {
     protected $name = null;
@@ -15,38 +10,22 @@ class Entity
     protected $isTargetEntities = [];
     protected $fields = [];
 
-    /**
-     *
-     * @param String $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     *
-     * @param String $rootEntityName
-     */
-    public function setRootEntityName($rootEntityName)
+    public function setRootEntityName(string $rootEntityName): void
     {
         $this->rootEntityName = $rootEntityName;
     }
 
-    /**
-     *
-     * @return String $rootEntityName
-     */
-    public function getRootEntityName()
+    public function getRootEntityName(): string
     {
         return $this->rootEntityName;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         if (count($this->getTargetEntities()) === 0) {
             $type = 'WeakEntity';
@@ -57,86 +36,49 @@ class Entity
         return $type;
     }
 
-    /**
-     * The complete namespace
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Get the uuid based on the name
-     *
-     * @return string
-     */
-    public function getUuid()
+    public function getUuid(): string
     {
         return md5($this->getName());
     }
 
-    /**
-     * Get the short name, the last entry of the complete namespace
-     *
-     * @return array
-     */
-    public function getShortName()
+    public function getShortName(): string
     {
         $explodedNames = explode('\\', $this->getName());
 
         return $explodedNames[count($explodedNames) - 1];
     }
 
-    /**
-     *
-     * @param unknown $targetEntity
-     */
-    public function addTargetEntity($targetEntity)
+    public function addTargetEntity($targetEntity): void
     {
         $this->targetEntities[] = $targetEntity;
     }
 
-    /**
-     *
-     * @param Boolean $isTargetEntity
-     */
-    public function addIsTargetEntity($isTargetEntity)
+    public function addIsTargetEntity(bool $isTargetEntity): void
     {
         $this->isTargetEntities[] = $isTargetEntity;
     }
 
-    /**
-     * @return Boolean
-     */
-    public function getIsTargetEntities()
+    public function getIsTargetEntities(): array
     {
         return $this->isTargetEntities;
     }
 
-    /**
-     *
-     * @return Ambigous <multitype:, unknown>
-     */
-    public function getTargetEntities()
+    public function getTargetEntities(): array
     {
         return $this->targetEntities;
     }
 
-    /**
-     *
-     * @param Field $field
-     */
-    public function addField(Field $field)
+    public function addField(Field $field): void
     {
         $this->fields[] = $field;
     }
 
-    /**
-     * @return array:Field
-     */
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }

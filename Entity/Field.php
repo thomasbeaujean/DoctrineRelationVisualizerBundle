@@ -2,49 +2,27 @@
 
 namespace tbn\DoctrineRelationVisualizerBundle\Entity;
 
-/**
- *
- * @author Thomas BEAUJEAN
- *
- */
 class Field
 {
     protected $name = null;
     protected $type = null;
 
-    /**
-     *
-     * @param unknown $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * The type of association
-     * @param string $associationType
-     */
-    public function setType($associationType)
+    public function setType(string $associationType): void
     {
         $this->type = $associationType;
     }
 
-    /**
-     *
-     * @return String The type
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * The complete namespace
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
