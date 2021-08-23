@@ -1,4 +1,7 @@
 services:
+    tbn\DoctrineRelationVisualizerBundle\Controller\VisualizerController:
+        public: true
+        class: "tbn\\DoctrineRelationVisualizerBundle\\Controller\\VisualizerController"
     tbn\DoctrineRelationVisualizerBundle\Services\EntityService:
         public: true
         class: "tbn\\DoctrineRelationVisualizerBundle\\Services\\EntityService"
