@@ -5,6 +5,7 @@
         "symfony/class-loader": "2.3.*"
     },
     "require": {
+        "php": ">=8.0",
         "tbn/getsetforeignnormalizer-bundle": ">=2.0.0"
     },
     "autoload": {

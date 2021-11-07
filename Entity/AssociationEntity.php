@@ -8,12 +8,12 @@ class AssociationEntity
     protected $associationType = null;
     protected $isNullable = null;
 
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function setAssociationType(string $associationType)
+    public function setAssociationType(string $associationType): void
     {
         $this->associationType = $associationType;
     }
@@ -46,19 +46,11 @@ class AssociationEntity
         return $explodedNames[count($explodedNames) - 1];
     }
 
-    /**
-     * Set the $isNullable
-     * @param unknown $isNullable
-     */
-    public function setIsNullable($isNullable)
+    public function setIsNullable($isNullable): void
     {
         $this->isNullable = $isNullable;
     }
 
-    /**
-     * Get the $isNullable
-     * @return unknown $isNullable
-     */
     public function getIsNullable()
     {
         return $this->isNullable;

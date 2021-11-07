@@ -12,23 +12,16 @@ use tbn\GetSetForeignNormalizerBundle\Component\Serializer\Normalizer\GetterMeth
 use Symfony\Component\Filesystem\Filesystem;
 use tbn\DoctrineRelationVisualizerBundle\Entity\Field;
 
-/**
- *
- * @author Thomas BEAUJEAN
- *
- * ref: tbn.entity_relation_visualizer.entity_service
- *
- */
 class EntityService
 {
-    public function __construct($ymlFilePath, private GetterMethodNormalizerFactory $getSetForeignNormalizer, private Registry $doctrine)
-    {
+    public function __construct(
+        string $ymlFilePath, 
+        private GetterMethodNormalizerFactory $getSetForeignNormalizer, 
+        private Registry $doctrine
+    ) {
         $this->ymlFilePath = $ymlFilePath;
     }
 
-    /**
-     * Save the entities position as an array in an yml file
-     */
     public function saveEntitiesPositions(array $entities, string $connectionName): void
     {
         $dumper = new Dumper();
@@ -42,26 +35,14 @@ class EntityService
         file_put_contents($filepath, $yaml);
     }
 
-    /**
-     * Get an array of entities with their positions
-     *
-     * @param string $connectionName The connection name
-     * @return array:entities
-     */
-    public function getEntities($connectionName)
+    public function getEntities(string $connectionName): array
     {
         $entities = $this->getEntitiesData($connectionName);
 
         return $this->getNormalizedEntities($entities, $connectionName);
     }
 
-    /**
-     * Get an array of visualizer entities
-     *
-     * @param $connectionName The connection name
-     * @return array:Entity
-     */
-    protected function getEntitiesData($connectionName)
+    protected function getEntitiesData(string $connectionName): array
     {
         $entities = array();
 
@@ -173,12 +154,7 @@ class EntityService
         return $entities;
     }
 
-    /**
-     *
-     * @param array $entities
-     * @return array The entities for the view
-     */
-    protected function getNormalizedEntities($entities, $connectionName)
+    protected function getNormalizedEntities(array $entities, string $connectionName): array
     {
         //services
         $normalizer = $this->getSetForeignNormalizer;
