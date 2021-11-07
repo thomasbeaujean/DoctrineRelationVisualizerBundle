@@ -11,29 +11,29 @@ use tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
 #[Route('/_visualizer')]
 class VisualizerController extends AbstractController
 {
-    public function __construct(private EntityService $entityService)
-    {
+    public function __construct(
+        private EntityService $entityService, 
+        private string $defaultEntityManagerName, 
+        private $entityManagers,
+        private $displayColumns,
+        private $areaWidth,
+        private $areaHeight
+    ) {
 
     }
 
     #[Route('/', name:"visualizer_base")]
     public function indexAction()
     {
-        //get the list of manager names
-        $managerName = $this->getParameter('doctrine.default_entity_manager');
-
-        return $this->redirect($this->generateUrl('visualizer_manager', array('managerName' => $managerName)));
+        return $this->redirect($this->generateUrl('visualizer_manager', array('managerName' => $this->defaultEntityManagerName)));
     }
 
     #[Route('/manager/{managerName}', name:"visualizer_manager")]
     public function managerAction(string $managerName)
     {
-        //get the list of manager names
-        $managers = $this->getParameter('doctrine.entity_managers');
-
         $managerNames = array();
 
-        foreach ($managers as $managerNameIndex => $manager) {
+        foreach ($this->entityManagers as $managerNameIndex => $manager) {
             $managerNames[] = $managerNameIndex;
         }
 
@@ -61,16 +61,12 @@ class VisualizerController extends AbstractController
     {
         $entities = $this->entityService->getEntities($connectionName);
 
-        $displayColumns = $this->getParameter('tbn.entity_relation_visualizer.display_columns');
-        $areaWidth = $this->getParameter('tbn.entity_relation_visualizer.area_width');
-        $areaHeight = $this->getParameter('tbn.entity_relation_visualizer.area_height');
-
         $response = new Response();
         $response->setContent(json_encode(array(
             'entities' => $entities,
-            'displayColumns' => $displayColumns,
-            'areaWidth' => $areaWidth,
-            'areaHeight' => $areaHeight)));
+            'displayColumns' => $this->displayColumns,
+            'areaWidth' => $this->areaWidth,
+            'areaHeight' => $this->areaHeight)));
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

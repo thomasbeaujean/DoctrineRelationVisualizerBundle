@@ -16,12 +16,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('doctrine_relation_visualizer');
         $rootNode = $treeBuilder->getRootNode();
 
-        // code for Symfony 2.x & 3.x
-        $positionFilepathDefaultValue = '%kernel.root_dir%/config';
-        if (Kernel::VERSION_ID >= 40000) {
-            // code for Symfony 4.x
-            $positionFilepathDefaultValue = '%kernel.project_dir%/src/DoctrineVisualizerBundle';
-        }
+        $positionFilepathDefaultValue = '%kernel.project_dir%/config';
 
         $rootNode
         ->children()
