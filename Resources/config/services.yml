@@ -10,7 +10,8 @@ services:
             - '%tbn.entity_relation_visualizer.area_width%'
             - '%tbn.entity_relation_visualizer.area_height%'
         calls:
-            - [setContainer, ['@service_container']]
+            - ['setContainer', ['@Psr\Container\ContainerInterface']]
+        tags: [container.service_subscriber]
     tbn\DoctrineRelationVisualizerBundle\Services\EntityService:
         public: true
         class: 'tbn\DoctrineRelationVisualizerBundle\Services\EntityService'
