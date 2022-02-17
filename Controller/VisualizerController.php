@@ -12,8 +12,8 @@ use tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
 class VisualizerController extends AbstractController
 {
     public function __construct(
-        private EntityService $entityService, 
-        private string $defaultEntityManagerName, 
+        private EntityService $entityService,
+        private string $defaultEntityManagerName,
         private $entityManagers,
         private $displayColumns,
         private $areaWidth,
