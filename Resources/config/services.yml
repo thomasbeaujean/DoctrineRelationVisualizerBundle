@@ -4,6 +4,8 @@ services:
         class: 'tbn\DoctrineRelationVisualizerBundle\Controller\VisualizerController'
         arguments:
             - '@tbn\DoctrineRelationVisualizerBundle\Services\EntityService'
+            - '@tbn\DoctrineRelationVisualizerBundle\Services\Persister'
+            - '@serializer'
             - '%doctrine.default_entity_manager%'
             - '%doctrine.entity_managers%'
             - '%tbn.entity_relation_visualizer.display_columns%'
@@ -16,6 +18,12 @@ services:
         public: true
         class: 'tbn\DoctrineRelationVisualizerBundle\Services\EntityService'
         arguments:
-            - '%tbn.entity_relation_visualizer.position_filepath%'
-            - '@get_set_foreign_normalizer'
             - '@doctrine'
+    tbn\DoctrineRelationVisualizerBundle\Services\Persister:
+        public: true
+        class: 'tbn\DoctrineRelationVisualizerBundle\Services\Persister'
+        arguments:
+            - '%tbn.entity_relation_visualizer.position_filepath%'
+    tbn\DoctrineRelationVisualizerBundle\DependencyInjection\DoctrineRelationVisualizerLoader:
+        public: true
+        class: 'tbn\DoctrineRelationVisualizerBundle\DependencyInjection\DoctrineRelationVisualizerLoader'

@@ -6,20 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 use tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
+use tbn\DoctrineRelationVisualizerBundle\Services\Persister;
 
 #[Route('/_visualizer')]
 class VisualizerController extends AbstractController
 {
     public function __construct(
         private EntityService $entityService,
+        private Persister $persister,
+        private SerializerInterface $serializer,
         private string $defaultEntityManagerName,
         private $entityManagers,
         private $displayColumns,
         private $areaWidth,
-        private $areaHeight
+        private $areaHeight,
     ) {
-
     }
 
     #[Route('/', name:"visualizer_base")]
@@ -47,7 +50,7 @@ class VisualizerController extends AbstractController
 
         $entities = json_decode($jsonEntities, true);
 
-        $this->entityService->saveEntitiesPositions($entities, $connectionName);
+        $this->persister->save($entities, $connectionName);
 
         $response = new Response();
         $response->setContent(json_encode(array()));
@@ -59,14 +62,18 @@ class VisualizerController extends AbstractController
     #[Route('/data/{connectionName}')]
     public function getDataAction(string $connectionName)
     {
-        $entities = $this->entityService->getEntities($connectionName);
+        $entitiesPositions = $this->persister->load($connectionName);
+        $entities = $this->entityService->getEntities($entitiesPositions, $connectionName);
 
-        $response = new Response();
-        $response->setContent(json_encode(array(
+        $jsonContent = $this->serializer->serialize([
             'entities' => $entities,
             'displayColumns' => $this->displayColumns,
             'areaWidth' => $this->areaWidth,
-            'areaHeight' => $this->areaHeight)));
+            'areaHeight' => $this->areaHeight,
+        ], 'json');
+
+        $response = new Response();
+        $response->setContent($jsonContent);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
