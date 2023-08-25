@@ -14,24 +14,4 @@ class ForeignClass
 
     #[ORM\ManyToOne(targetEntity: MyClass::class)]
     private ?MyClass $myClass;
-
-    // public function setId(int $value): void
-    // {
-    //     $this->id = $value;
-    // }
-
-    // public function getId(): int
-    // {
-    //     return $this->id;
-    // }
-
-    // public function setMyClass(?MyClass $value): void
-    // {
-    //     $this->myClass = $value;
-    // }
-
-    // public function getMyClass(): ?MyClass
-    // {
-    //     return $this->myClass;
-    // }
 }
