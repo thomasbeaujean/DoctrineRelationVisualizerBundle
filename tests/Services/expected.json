@@ -1,0 +1,64 @@
+[
+    {
+        "x": 1,
+        "y": 1,
+        "entity": {
+            "rootEntityName": null,
+            "type": "Entity",
+            "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\ForeignClass",
+            "uuid": "18e9d45ed8e69e33387d8957ad161fd7",
+            "shortName": "ForeignClass",
+            "isTargetEntities": [],
+            "targetEntities": [
+                {
+                    "associationType": "MANY_TO_ONE",
+                    "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\MyClass",
+                    "uuid": "6e34e60de02cb13478ebe90688dbdcdd",
+                    "shortName": "MyClass",
+                    "isNullable": true
+                }
+            ],
+            "fields": [
+                {
+                    "type": "integer",
+                    "name": "id"
+                }
+            ]
+        }
+    },
+    {
+        "x": 1,
+        "y": 1,
+        "entity": {
+            "rootEntityName": null,
+            "type": "Entity",
+            "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\MyClass",
+            "uuid": "6e34e60de02cb13478ebe90688dbdcdd",
+            "shortName": "MyClass",
+            "isTargetEntities": [],
+            "targetEntities": [
+                {
+                    "associationType": "ONE_TO_MANY",
+                    "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\ForeignClass",
+                    "uuid": "18e9d45ed8e69e33387d8957ad161fd7",
+                    "shortName": "ForeignClass",
+                    "isNullable": true
+                }
+            ],
+            "fields": [
+                {
+                    "type": "integer",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "number"
+                },
+                {
+                    "type": "string",
+                    "name": "name"
+                }
+            ]
+        }
+    }
+]

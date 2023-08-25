@@ -1,4 +1,4 @@
-tbn_doctrine_relation_visualizer:
+controllers:
     resource: "@DoctrineRelationVisualizerBundle/Controller/"
     type:     annotation
     prefix:   /
