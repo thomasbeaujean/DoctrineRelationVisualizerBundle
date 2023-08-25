@@ -6,40 +6,20 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
 use tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
-use Symfony\Component\Yaml\Dumper;
-use Symfony\Component\Yaml\Yaml;
-use tbn\GetSetForeignNormalizerBundle\Component\Serializer\Normalizer\GetterMethodNormalizerFactory;
-use Symfony\Component\Filesystem\Filesystem;
 use tbn\DoctrineRelationVisualizerBundle\Entity\Field;
 
 class EntityService
 {
     public function __construct(
-        string $ymlFilePath, 
-        private GetterMethodNormalizerFactory $getSetForeignNormalizer, 
         private Registry $doctrine
     ) {
-        $this->ymlFilePath = $ymlFilePath;
     }
 
-    public function saveEntitiesPositions(array $entities, string $connectionName): void
-    {
-        $dumper = new Dumper();
-        $yaml = $dumper->dump($entities, 10);
-
-        $fs = new Filesystem();
-
-        $filepath = $this->ymlFilePath.'/visualizer-'.$connectionName.'.yml';
-        $fs->touch($filepath);
-
-        file_put_contents($filepath, $yaml);
-    }
-
-    public function getEntities(string $connectionName): array
+    public function getEntities(array $entitiesPositions, string $connectionName): array
     {
         $entities = $this->getEntitiesData($connectionName);
 
-        return $this->getNormalizedEntities($entities, $connectionName);
+        return $this->getNormalizedEntities($entitiesPositions, $entities, $connectionName);
     }
 
     protected function getEntitiesData(string $connectionName): array
@@ -154,25 +134,13 @@ class EntityService
         return $entities;
     }
 
-    protected function getNormalizedEntities(array $entities, string $connectionName): array
+    protected function getNormalizedEntities(array $entitiesPositions,array $entities, string $connectionName): array
     {
-        //services
-        $normalizer = $this->getSetForeignNormalizer;
-
         $normalizedEntities = array();
-
-        $filepath = $this->ymlFilePath.'/visualizer-'.$connectionName.'.yml';
-
-        $fs = new Filesystem();
-        $fs->touch($filepath);
-
-        $content = file_get_contents($filepath);
-
-        $entitiesPositions = Yaml::parse($content);
 
         //parse entities
         foreach ($entities as $entity) {
-            $normalizedEntity = $normalizer->normalize($entity);
+            // $normalizedEntity = $this->normalize($entity);
             $uuid = $entity->getUuid();
 
             if (isset($entitiesPositions[$uuid])) {
@@ -195,7 +163,7 @@ class EntityService
             $normalizedEntities[] = array(
                 'x' => $x,
                 'y' => $y,
-                'entity' => $normalizedEntity,
+                'entity' => $entity,
             );
         }
 

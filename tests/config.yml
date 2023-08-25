@@ -1,0 +1,16 @@
+doctrine:
+  dbal:
+    driver: pdo_pgsql
+  orm:
+    auto_generate_proxy_classes: true
+    auto_mapping: true
+    mappings:
+      App:
+        is_bundle: false
+        dir: '%kernel.project_dir%/tests/src/Entity'
+        prefix: 'tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity'
+        alias: App
+        type: attribute
+doctrine_relation_visualizer:
+  position_filepath:
+    '%kernel.project_dir%/tests'
