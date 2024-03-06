@@ -8,7 +8,7 @@ doctrine:
       App:
         is_bundle: false
         dir: '%kernel.project_dir%/tests/src/Entity'
-        prefix: 'tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity'
+        prefix: 'Tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity'
         alias: App
         type: attribute
 doctrine_relation_visualizer:

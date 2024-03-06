@@ -1,6 +1,6 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Services;
+namespace Tbn\DoctrineRelationVisualizerBundle\Services;
 
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Yaml;

@@ -1,6 +1,6 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity;
+namespace Tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity;
 
 class NotOrmClass
 {

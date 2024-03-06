@@ -1,14 +1,14 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Tests\Service;
+namespace Tbn\DoctrineRelationVisualizerBundle\Tests\Service;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Nyholm\BundleTest\TestKernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use tbn\DoctrineRelationVisualizerBundle\DoctrineRelationVisualizerBundle;
-use tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
+use Tbn\DoctrineRelationVisualizerBundle\DoctrineRelationVisualizerBundle;
+use Tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
 
 class EntityServiceTest extends KernelTestCase
 {

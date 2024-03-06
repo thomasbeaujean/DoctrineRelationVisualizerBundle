@@ -16,11 +16,13 @@
         "symfony/property-access": "^5.4|^6.0|^7.0"
     },
     "autoload": {
-        "psr-4": { "tbn\\DoctrineRelationVisualizerBundle\\": "" }
+        "psr-4": {
+            "Tbn\\DoctrineRelationVisualizerBundle\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "tbn\\GetterTraitBundle\\Tests\\": "tests/"
+            "Tbn\\DoctrineRelationVisualizerBundle\\Tests\\": "tests/"
         }
     }
 }

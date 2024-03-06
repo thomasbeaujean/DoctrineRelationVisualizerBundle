@@ -1,6 +1,6 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Entity;
+namespace Tbn\DoctrineRelationVisualizerBundle\Entity;
 
 class Entity
 {

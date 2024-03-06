@@ -5,15 +5,15 @@
         "entity": {
             "rootEntityName": null,
             "type": "Entity",
-            "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\ForeignClass",
-            "uuid": "18e9d45ed8e69e33387d8957ad161fd7",
+            "name": "Tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\ForeignClass",
+            "uuid": "8ccf673da0991f76f65c5dd8e6c5206b",
             "shortName": "ForeignClass",
             "isTargetEntities": [],
             "targetEntities": [
                 {
                     "associationType": "MANY_TO_ONE",
-                    "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\MyClass",
-                    "uuid": "6e34e60de02cb13478ebe90688dbdcdd",
+                    "name": "Tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\MyClass",
+                    "uuid": "f9e7cb202bab5ba635da7e2eb14d04db",
                     "shortName": "MyClass",
                     "isNullable": true
                 }
@@ -32,15 +32,15 @@
         "entity": {
             "rootEntityName": null,
             "type": "Entity",
-            "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\MyClass",
-            "uuid": "6e34e60de02cb13478ebe90688dbdcdd",
+            "name": "Tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\MyClass",
+            "uuid": "f9e7cb202bab5ba635da7e2eb14d04db",
             "shortName": "MyClass",
             "isTargetEntities": [],
             "targetEntities": [
                 {
                     "associationType": "ONE_TO_MANY",
-                    "name": "tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\ForeignClass",
-                    "uuid": "18e9d45ed8e69e33387d8957ad161fd7",
+                    "name": "Tbn\\DoctrineRelationVisualizerBundle\\Tests\\src\\Entity\\ForeignClass",
+                    "uuid": "8ccf673da0991f76f65c5dd8e6c5206b",
                     "shortName": "ForeignClass",
                     "isNullable": true
                 }

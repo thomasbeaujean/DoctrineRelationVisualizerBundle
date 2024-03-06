@@ -1,14 +1,14 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Controller;
+namespace Tbn\DoctrineRelationVisualizerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
-use tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
-use tbn\DoctrineRelationVisualizerBundle\Services\Persister;
+use Tbn\DoctrineRelationVisualizerBundle\Services\EntityService;
+use Tbn\DoctrineRelationVisualizerBundle\Services\Persister;
 
 #[Route('/_visualizer')]
 class VisualizerController extends AbstractController
