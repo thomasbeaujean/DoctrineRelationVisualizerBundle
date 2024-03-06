@@ -1,6 +1,6 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity;
+namespace Tbn\DoctrineRelationVisualizerBundle\Tests\src\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;

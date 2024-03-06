@@ -1,6 +1,6 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle;
+namespace Tbn\DoctrineRelationVisualizerBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -1,0 +1,29 @@
+services:
+    Tbn\DoctrineRelationVisualizerBundle\Controller\VisualizerController:
+        public: true
+        class: 'Tbn\DoctrineRelationVisualizerBundle\Controller\VisualizerController'
+        arguments:
+            - '@Tbn\DoctrineRelationVisualizerBundle\Services\EntityService'
+            - '@Tbn\DoctrineRelationVisualizerBundle\Services\Persister'
+            - '@serializer'
+            - '%doctrine.default_entity_manager%'
+            - '%doctrine.entity_managers%'
+            - '%tbn.entity_relation_visualizer.display_columns%'
+            - '%tbn.entity_relation_visualizer.area_width%'
+            - '%tbn.entity_relation_visualizer.area_height%'
+        calls:
+            - ['setContainer', ['@Psr\Container\ContainerInterface']]
+        tags: [container.service_subscriber]
+    Tbn\DoctrineRelationVisualizerBundle\Services\EntityService:
+        public: true
+        class: 'Tbn\DoctrineRelationVisualizerBundle\Services\EntityService'
+        arguments:
+            - '@doctrine'
+    Tbn\DoctrineRelationVisualizerBundle\Services\Persister:
+        public: true
+        class: 'Tbn\DoctrineRelationVisualizerBundle\Services\Persister'
+        arguments:
+            - '%tbn.entity_relation_visualizer.position_filepath%'
+    Tbn\DoctrineRelationVisualizerBundle\DependencyInjection\DoctrineRelationVisualizerLoader:
+        public: true
+        class: 'Tbn\DoctrineRelationVisualizerBundle\DependencyInjection\DoctrineRelationVisualizerLoader'

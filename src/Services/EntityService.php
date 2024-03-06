@@ -1,12 +1,12 @@
 <?php
 
-namespace tbn\DoctrineRelationVisualizerBundle\Services;
+namespace Tbn\DoctrineRelationVisualizerBundle\Services;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
-use tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
-use tbn\DoctrineRelationVisualizerBundle\Entity\Field;
+use Tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
+use Tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
+use Tbn\DoctrineRelationVisualizerBundle\Entity\Field;
 
 class EntityService
 {
