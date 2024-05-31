@@ -3,17 +3,17 @@
     "description": "Visualize the entity relation of doctrine entities",
     "require-dev": {
         "symfony/class-loader": "2.3.*",
-        "nyholm/symfony-bundle-test": "^2.0",
+        "nyholm/symfony-bundle-test": "^3.0",
         "phpunit/phpunit": "^10.3"
     },
     "require": {
         "php": "^8.1",
-        "symfony/framework-bundle": "^5.4|^6.0|^7.0",
-        "doctrine/doctrine-bundle": "^2.10",
-        "doctrine/orm": "^2.4",
+        "symfony/framework-bundle": "^5.4|^6.3|^7.1",
+        "doctrine/doctrine-bundle": "^2.12",
+        "doctrine/orm": "^3.0",
         "doctrine/annotations": "^2.0",
-        "symfony/serializer": "^5.4|^6.0|^7.0",
-        "symfony/property-access": "^5.4|^6.0|^7.0"
+        "symfony/serializer": "^5.4|^6.3|^7.1",
+        "symfony/property-access": "^5.4|^6.3|^7.1"
     },
     "autoload": {
         "psr-4": {
