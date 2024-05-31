@@ -3,7 +3,7 @@
 namespace Tbn\DoctrineRelationVisualizerBundle\Services;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Tbn\DoctrineRelationVisualizerBundle\Entity\Entity;
 use Tbn\DoctrineRelationVisualizerBundle\Entity\AssociationEntity;
 use Tbn\DoctrineRelationVisualizerBundle\Entity\Field;
@@ -72,16 +72,16 @@ class EntityService
                     }
 
                     switch ($doctrineAssociationType) {
-                        case ClassMetadataInfo::ONE_TO_MANY:
+                        case ClassMetadata::ONE_TO_MANY:
                             $associationType = 'ONE_TO_MANY';
                             break;
-                        case ClassMetadataInfo::MANY_TO_MANY:
+                        case ClassMetadata::MANY_TO_MANY:
                             $associationType = 'MANY_TO_MANY';
                             break;
-                        case ClassMetadataInfo::MANY_TO_ONE:
+                        case ClassMetadata::MANY_TO_ONE:
                             $associationType = 'MANY_TO_ONE';
                             break;
-                        case ClassMetadataInfo::ONE_TO_ONE:
+                        case ClassMetadata::ONE_TO_ONE:
                             $associationType = 'ONE_TO_ONE';
                             break;
                         default:
