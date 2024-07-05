@@ -26,7 +26,7 @@ Add the bundle to `config/bundles.php`
 Add the file `config/routes/dev/visualizer.yaml`
 
     tbn_doctrine_relation_visualizer:
-        resource: "@DoctrineRelationVisualizerBundle/Resources/config/routing.yml"
+        resource: "@DoctrineRelationVisualizerBundle/Resources/config/routes.php"
 
 ## Customize bundle (optionnal)
 
