@@ -33,7 +33,7 @@ Add the file `config/routes/dev/visualizer.yaml`
 Add the file `config/packages/dev/doctrine_relation_visualizer.yaml`
 
     doctrine_relation_visualizer:
-        position_filepath: '%kernel.project_dir%/config%'
+        position_filepath: '%kernel.project_dir%/config'
         display_columns: true
         area_width: 4000
         area_height: 3000
