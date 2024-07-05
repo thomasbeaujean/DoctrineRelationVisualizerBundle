@@ -19,7 +19,7 @@ class DoctrineRelationVisualizerExtension extends Extension
             $container->setParameter('tbn.entity_relation_visualizer.'.$key, $value);
         }
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.php');
     }
 }
